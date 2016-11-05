@@ -15,11 +15,6 @@ public class AlteraSenha {
 		
 	}
 	
-	public AlteraSenha(String novaSenha, String confirmaNovaSenha){
-		this.novaSenha = novaSenha;
-		this.confirmaNovaSenha = confirmaNovaSenha;
-	}
-
 	public void setNovaSenha(String novaSenha) {
 		this.novaSenha = novaSenha;
 	}
