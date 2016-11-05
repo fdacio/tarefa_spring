@@ -2,7 +2,7 @@ package br.com.daciosoftware.tarefa.model;
 
 public enum TarefaPrioridade {
 	BAIXA("Baixa"), 
-	MEDIA("Media"), 
+	MEDIA("Média"), 
 	ALTA("Alta"),
 	URGENTE("Urgente");
 	
