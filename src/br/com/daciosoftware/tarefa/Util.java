@@ -5,7 +5,11 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 
 public class Util {
-	
+	/**
+	 * 
+	 * @param senha
+	 * @return senha criptografa com algoritimo SHA-256
+	 */
 	public static String criptografaSenha(String senha){
 		try {
 			MessageDigest algorithm = MessageDigest.getInstance("SHA-256");
