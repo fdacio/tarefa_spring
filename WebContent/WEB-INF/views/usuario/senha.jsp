@@ -6,7 +6,7 @@
 <div>
 
 
-	<sf:form action="gravaSenha" methodParam="POST" class="formulario" modelAttribute="alterasenha">
+	<sf:form action="gravaSenha" methodParam="POST" class="formulario" modelAttribute="alteraSenha">
 		<fieldset>
 			<legend>Alterar Senha</legend>
 			<table>

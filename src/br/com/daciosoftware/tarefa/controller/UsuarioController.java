@@ -89,7 +89,7 @@ public class UsuarioController {
 
 	@RequestMapping("alteraSenha")
 	public String alteraSenha(Model model) {
-		model.addAttribute("alterSenha", new AlteraSenha());
+		model.addAttribute("alteraSenha", new AlteraSenha());
 		return "usuario/senha";
 	}
 
