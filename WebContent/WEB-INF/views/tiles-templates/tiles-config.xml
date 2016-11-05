@@ -1,0 +1,78 @@
+<!DOCTYPE tiles-definitions PUBLIC "-//Apache Software Foundation//DTD Tiles Configuration 2.0//EN" 
+"http://tiles.apache.org/dtds/tiles-config_2_0.dtd">
+<tiles-definitions> 
+	<!-- Definição básica -->
+
+	<definition name="main" template="/WEB-INF/views/tiles-templates/main.jsp">
+		<put-attribute name="titulo" value="Gerenciador de Tarefas" />
+		<put-attribute name="header" value="/WEB-INF/views/tiles-templates/header.jsp" />
+		<put-attribute name="footer" value="/WEB-INF/views/tiles-templates/footer.jsp" />
+	</definition>
+
+	<definition name="index" extends="main">
+		<put-attribute name="login" value="/WEB-INF/views/tiles-templates/login.jsp" />
+		<put-attribute name="content" value="" />
+		<put-attribute name="menu" value="" />
+	</definition>
+
+
+	<definition name="content_menu" extends="main">
+		<put-attribute name="login" value="" />
+		<put-attribute name="menu" value="/WEB-INF/views/tiles-templates/menu.jsp" />
+	</definition>
+
+	<definition name="wellcome" extends="content_menu">
+		<put-attribute name="titulo" value="Bem vindo(a)!" />
+		<put-attribute name="content" value="/WEB-INF/views/wellcome.jsp" />
+	</definition>
+
+	<definition name="tarefa/nova" extends="content_menu">
+		<put-attribute name="titulo" value="Nova Tarefa" />
+		<put-attribute name="content" value="/WEB-INF/views/tarefa/nova.jsp" />
+	</definition>
+
+	<definition name="tarefa/altera" extends="content_menu">
+		<put-attribute name="titulo" value="Alterar Tarefa" />
+		<put-attribute name="content" value="/WEB-INF/views/tarefa/altera.jsp" />
+	</definition>
+
+	<definition name="tarefa/lista" extends="content_menu">
+		<put-attribute name="titulo" value="Minhas Tarefas" />
+		<put-attribute name="content" value="/WEB-INF/views/tarefa/lista.jsp" />
+	</definition>
+
+	<definition name="tarefa/listaTodas" extends="content_menu">
+		<put-attribute name="titulo" value="Todas Tarefas" />
+		<put-attribute name="content" value="/WEB-INF/views/tarefa/listaTodas.jsp" />
+	</definition>
+
+	<definition name="usuario/cadastrese" extends="index">
+		<put-attribute name="titulo" value="Cadastre-se" />
+		<put-attribute name="content" value="/WEB-INF/views/usuario/cadastrese.jsp" />
+	</definition>
+
+	<definition name="usuario/senha" extends="content_menu">
+		<put-attribute name="titulo" value="Alterar Senha" />
+		<put-attribute name="content" value="/WEB-INF/views/usuario/senha.jsp" />
+	</definition>
+
+	<definition name="usuario/edita" extends="content_menu">
+		<put-attribute name="titulo" value="Usuário" />
+		<put-attribute name="content" value="/WEB-INF/views/usuario/edita.jsp" />
+	</definition>
+	
+	<definition name="usuario/lista" extends="content_menu">
+		<put-attribute name="titulo" value="Usuários" />
+		<put-attribute name="content" value="/WEB-INF/views/usuario/lista.jsp" />
+	</definition>
+
+	<definition name="usuario/mensagem" extends="content_menu">
+		<put-attribute name="titulo" value="Usuário" />
+		<put-attribute name="content" value="/WEB-INF/views/usuario/mensagem.jsp" />
+	</definition>
+
+	<definition name="categoria/cadastro" extends="content_menu">
+		<put-attribute name="titulo" value="Categorias" />
+		<put-attribute name="content" value="/WEB-INF/views/categoria/cadastro.jsp" />
+	</definition>
+</tiles-definitions>	

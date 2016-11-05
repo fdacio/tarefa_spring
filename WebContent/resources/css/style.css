@@ -1,0 +1,145 @@
+/*CSS PARA TELA PRINCIPAL*/
+body{
+	margin: 10px 25px auto 25px;
+}
+
+#header {
+	border-bottom: solid 1px black;
+}
+
+#header>#logo{
+	margin-bottom: 0px;
+}
+
+#header>#title {
+	font-family: Verdana;
+	font-size: 2em;
+}
+
+#login{
+	font-family: Arial;
+	font-size: 14px;
+	float: right;
+	margin-top: -70px;
+}
+
+div#login input[type="text"], div#login input[type="password"]{
+	width: 200px;
+	height: 20px;
+	padding: 2px;
+	border: 1px solid green;
+	border-radius: 5px; 
+}
+
+div#login input[type="submit"], div#login input[type="button"]{
+	height: 25px;
+	padding: 2px;
+	border: 1px solid #cccccc;
+	background-color: green;
+	color: #ffffff;
+	cursor: pointer;
+}
+
+#div_menu {
+	float: left;
+	margin-top: 10px;
+}
+
+#content {
+	font-family: Arial;
+	margin: 10px auto;
+	display: table;
+}
+
+#footer {
+	position: absolute;
+	bottom: 10px;
+	width:96%;
+	border-top: solid 1px black;
+}
+
+/*CSS PARA LISTAGEM*/
+.lista {
+	width: 650px;
+}
+
+.lista th {
+	border: 1px solid black;
+}
+
+.lista td {
+	border: 1px solid black;
+	font-size: 14px;
+}
+
+.lista a {
+	text-decoration: none;
+	color: green
+}
+
+.lista tr:nth-child(odd) {
+	background: lightgray;
+}
+
+.lista a.finaliza {
+	color: red;
+}
+
+.lista th.acoes, th.pessoa {
+	width: 100px;
+}
+
+.lista td.acoes, td.finalizar {
+	text-align: center
+}
+
+
+form.formulario	input[type="text"], form.formulario input[type="password"]{
+	width: 250px;
+	height: 25px;
+	padding: 5px;
+	font-family: Arial;
+	font-size: 14px;
+	border: 1px solid #cccccc;
+	border-radius: 5px; 
+}
+
+form.formulario select{
+	width: 250px;
+	height: 35px;
+	padding: 5px;
+	font-family: Arial;
+	font-size: 14px;
+	border: 1px solid #cccccc;
+	border-radius: 5px; 
+}
+
+form.formulario textarea{
+	padding: 5px;
+	font-family: Arial;
+	font-size: 14px;
+	border: 1px solid #cccccc;
+	border-radius: 5px; 
+}
+
+form.formulario input[type="submit"], form.formulario input[type="button"]{
+	height: 35px;
+	border: 1px solid #cccccc;
+	background-color: green;
+	color: #ffffff;
+	cursor: pointer;
+	display: table-cell;
+	float: right;
+}
+
+form.formulario fieldset{
+	border: 1px solid green;
+	border-radius: 5px; 
+}
+
+form.formulario legend{
+	
+	font-family: Verdana;
+	font-size: 16px;
+	font-weight:  bold; 
+}
