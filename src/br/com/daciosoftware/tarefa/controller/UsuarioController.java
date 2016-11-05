@@ -12,11 +12,11 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import br.com.daciosoftware.tarefa.Util;
 import br.com.daciosoftware.tarefa.dao.JpaCategoriaDao;
 import br.com.daciosoftware.tarefa.dao.JpaUsuarioDao;
+import br.com.daciosoftware.tarefa.model.AlteraSenha;
 import br.com.daciosoftware.tarefa.model.Usuario;
 
 @Controller // -> Indica que o spring irá controlar essa classe
@@ -88,29 +88,28 @@ public class UsuarioController {
 	
 
 	@RequestMapping("alteraSenha")
-	public String alteraSenha() {
+	public String alteraSenha(Model model) {
+		model.addAttribute("alterSenha", new AlteraSenha());
 		return "usuario/senha";
 	}
 
 	@RequestMapping(value = "gravaSenha", method = RequestMethod.POST)
-	public String gravaSenha(@RequestParam("nova_senha") String novaSenha,
-			@RequestParam("confirma_senha") String confirmaSenha, HttpSession session, Model model) {
+	public String gravaSenha(@Valid AlteraSenha alteraSenha, BindingResult result, HttpSession session, Model model) {
 
-		if (novaSenha.length() < 6) {
-			model.addAttribute("mensagemSenha", "A senha tem que ter mínimo 6 carecteres!");
+		if (result.hasErrors()) {
 			return "usuario/senha";
 		}
 
-		if (!novaSenha.equals(confirmaSenha)) {
+		if (!alteraSenha.getNovaSenha().equals(alteraSenha.getConfirmaNovaSenha())) {
 			model.addAttribute("mensagemSenha", "Confirmação de senha inválida!");
 			return "usuario/senha";
 		}
 
 		Usuario usuario = (Usuario) session.getAttribute("usuarioLogado");
-		usuario.setSenha(Util.criptografaSenha(novaSenha));
+		usuario.setSenha(Util.criptografaSenha(alteraSenha.getNovaSenha()));
 		dao.altera(usuario);
-		model.addAttribute("mensagem", "Operação realizada com sucesso!");
-		return "usuario/mensagem";
+		model.addAttribute("mensagemSenhaSucesso", "Operação realizada com sucesso!");
+		return "usuario/senha";
 	}
 
 	@RequestMapping("excluiUsuario")
