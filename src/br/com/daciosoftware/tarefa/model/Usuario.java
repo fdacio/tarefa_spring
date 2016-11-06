@@ -40,6 +40,8 @@ public class Usuario implements Entidade{
 	@JoinColumn(name = "categoria_id")
 	private Categoria categoria;
 	
+	private boolean bloqueado;
+	
 	public Integer getId() {
 		return id;
 	}
@@ -89,4 +91,12 @@ public class Usuario implements Entidade{
 	public String toString(){
 		return this.nome + "-" +this.email;
 	}
+	
+	public boolean isBloqueado() {
+		return bloqueado;
+	}
+	public void setBloqueado(boolean bloqueado) {
+		this.bloqueado = bloqueado;
+	}
+	
 }

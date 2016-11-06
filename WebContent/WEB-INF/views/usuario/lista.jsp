@@ -2,22 +2,40 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="sf"%>
 <div>
-	<h3>Todos Usuários</h3>
-	<table class="lista">
-		<tr>
-			<th>Nome</th>
-			<th>Email</th>
-			<th>Categoria</th>
-			<th>Ações</th>
-		</tr>
-		<c:forEach var="usuario" items="${usuarios}" varStatus="id">
-			<tr>
-				<td>${usuario.nome}</td>
-				<td>${usuario.email}</td>
-				<td>${usuario.categoria.nome}</td>
-				<td class="acoes"><a href="alteraUsuario?id=${usuario.id}">Alterar</a> <a
-					href="excluiUsuario?id=${usuario.id}">Excluir</a></td>
-			</tr>
-		</c:forEach>
-	</table>
+	<form action="consultarUsuarios" method="post" class="formulario">
+		<fieldset>
+			<legend>Lista de Usuários</legend>
+
+			<table class="consulta">
+				<tr>
+					<td><label>Nome</label></td>
+				</tr>
+				<tr>
+					<td><input type="text" name="nome" /><input type="submit"
+						value="Pesquisar" /></td>
+				</tr>
+
+			</table>
+
+			<table class="lista">
+				<tr>
+					<th>Nome</th>
+					<th>Email</th>
+					<th>Categoria</th>
+					<th>Boqueado</th>
+					<th>Ações</th>
+				</tr>
+				<c:forEach var="usuario" items="${usuarios}">
+					<tr>
+						<td>${usuario.nome}</td>
+						<td>${usuario.email}</td>
+						<td>${usuario.categoria.nome}</td>
+						<td>${(usuario.bloqueado)?'SIM':'NÃO'}</td>
+						<td class="acoes"><a href="bloquearUsuario?id=${usuario.id}">Bloquear</a>
+						</td>
+					</tr>
+				</c:forEach>
+			</table>
+		</fieldset>
+	</form>
 </div>

@@ -10,11 +10,10 @@
 					<td><label>Descrição</label></td>
 				</tr>
 				<tr>
-				<tr>
 					<td><input type="text" name="descricao" /><input type="submit"
 				value="Pesquisar" /></td>
 				</tr>
-				<tr>
+
 			</table>
 			
 			<table class="lista">

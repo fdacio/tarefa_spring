@@ -12,6 +12,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import br.com.daciosoftware.tarefa.Util;
 import br.com.daciosoftware.tarefa.dao.JpaCategoriaDao;
@@ -27,7 +29,7 @@ public class UsuarioController {
 
 	@Autowired
 	private JpaCategoriaDao daoCatergoria;
-	
+
 	@Autowired
 	public UsuarioController(JpaUsuarioDao dao) {
 		this.dao = dao;
@@ -44,38 +46,46 @@ public class UsuarioController {
 
 	@RequestMapping(value = "cadastraUsuario", method = RequestMethod.POST)
 	public String cadastraUsuario(@Valid Usuario usuario, BindingResult result, Model model) {
-		
+
 		if (result.hasErrors()) {
 			model.addAttribute("categorias", daoCatergoria.lista());
 			return "usuario/cadastrese";
 		}
-		
+
 		if (!usuario.getSenha().equals(usuario.getConfirmaSenha())) {
 			model.addAttribute("confirmaSenha", "Confirmação de senha inválida");
 			return "usuario/cadastrese";
 		}
-		
+
 		usuario.setSenha(Util.criptografaSenha(usuario.getSenha()));
 		dao.adiciona(usuario);
 		model.addAttribute("msgSucesso", "Cadastro realizado com sucesso!");
 		model.addAttribute("usuario", new Usuario());
 		return "forward:cadastrese";
 	}
+	
+	public static HttpSession session() {
+	    ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+	    return attr.getRequest().getSession(true); 
+	}	
 
+	private Usuario getUsuarioLogado(){
+		return ((Usuario) session().getAttribute("usuarioLogado"));
+	}
+	
 	@RequestMapping("dadosUsuario")
-	public String alteraUsuario(Model model, HttpSession session) {
-		Usuario usuario = ((Usuario) session.getAttribute("usuarioLogado"));
+	public String alteraUsuario(Model model) {
+		Usuario usuario = getUsuarioLogado();
 		model.addAttribute("categorias", daoCatergoria.lista());
 		model.addAttribute("usuario", dao.buscaPorId(usuario.getId()));
 		return "usuario/edita";
 	}
 
-	
 	@RequestMapping(value = "gravaDados", method = RequestMethod.POST)
 	public String gravaUsuario(@Valid Usuario usuario, BindingResult result, Model model, HttpSession session) {
 
 		model.addAttribute("categorias", daoCatergoria.lista());
-		
+
 		if (result.hasErrors()) {
 			return "usuario/edita";
 		}
@@ -85,7 +95,6 @@ public class UsuarioController {
 		model.addAttribute("mensagemSucesso", "Operação realizada com sucesso!");
 		return "usuario/edita";
 	}
-	
 
 	@RequestMapping("alteraSenha")
 	public String alteraSenha(Model model) {
@@ -112,24 +121,32 @@ public class UsuarioController {
 		return "usuario/senha";
 	}
 
-	@RequestMapping("excluiUsuario")
-	public String existeUsuario(Integer id, Model model, HttpSession session) {
-		Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
+	@RequestMapping("bloquearUsuario")
+	public String bloquearUsuario(Integer id, Model model) {
+		Usuario usuarioLogado = getUsuarioLogado();
 		if (usuarioLogado.isAdministrador()) {
-			dao.remove(dao.buscaPorId(id));
-			model.addAttribute("mensagem", "Operação realizada com sucesso!");
+			Usuario usuario = dao.buscaPorId(id);
+			boolean bloqueado = usuario.isBloqueado();
+			usuario.setBloqueado(!bloqueado);
+			dao.altera(usuario);
+			return "redirect:todosusuarios";
 
 		} else {
-			model.addAttribute("mensagem", "Usuário não tem autorização!");
+			return "logout";
 		}
-		return "usuario/mensagem";
+		
 	}
 
 	@RequestMapping("todosUsuarios")
 	public String listaUsuario(Model model) {
-		List<Usuario> usuarios = dao.lista();
-		model.addAttribute("usuarios", usuarios);
-		return "usuario/lista";
+		Usuario usuarioLogado = getUsuarioLogado();
+		if (usuarioLogado.isAdministrador()) {
+			List<Usuario> usuarios = dao.lista();
+			model.addAttribute("usuarios", usuarios);
+			return "usuario/lista";
+		}else{
+			return "logout";
+		}
 	}
 
 }
