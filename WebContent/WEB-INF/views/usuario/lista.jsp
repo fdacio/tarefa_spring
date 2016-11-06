@@ -31,7 +31,7 @@
 						<td>${usuario.email}</td>
 						<td>${usuario.categoria.nome}</td>
 						<td>${(usuario.bloqueado)?'SIM':'NÃO'}</td>
-						<td class="acoes"><a href="bloquearUsuario?id=${usuario.id}">Bloquear</a>
+						<td class="acoes"><a href="bloquearUsuario?id=${usuario.id}">${(usuario.bloqueado)?'Desbloquear':'Bloquear'}</a>
 						</td>
 					</tr>
 				</c:forEach>
