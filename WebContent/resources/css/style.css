@@ -1,5 +1,5 @@
 /*CSS PARA TELA PRINCIPAL*/
-body{
+body {
 	margin: 10px 25px auto 25px;
 }
 
@@ -7,7 +7,7 @@ body{
 	border-bottom: solid 1px black;
 }
 
-#header>#logo{
+#header>#logo {
 	margin-bottom: 0px;
 }
 
@@ -16,22 +16,22 @@ body{
 	font-size: 2em;
 }
 
-#login{
+#login {
 	font-family: Arial;
 	font-size: 14px;
 	float: right;
 	margin-top: -70px;
 }
 
-div#login input[type="text"], div#login input[type="password"]{
+div#login input[type="text"], div#login input[type="password"] {
 	width: 200px;
 	height: 20px;
 	padding: 2px;
 	border: 1px solid green;
-	border-radius: 5px; 
+	border-radius: 5px;
 }
 
-div#login input[type="submit"], div#login input[type="button"]{
+div#login input[type="submit"], div#login input[type="button"] {
 	height: 25px;
 	padding: 2px;
 	border: 1px solid #cccccc;
@@ -41,17 +41,23 @@ div#login input[type="submit"], div#login input[type="button"]{
 }
 
 #div_menu {
-	float: left;
 	margin-top: 10px;
+	float: left;
 }
 
 #content {
-	font-family: Arial;
-	margin: 10px auto;
-	display: table;
+	font: normal 14px Arial;
+	width: 100%;
 }
 
+#content>div {
+	display: table;
+	margin: 10px auto;
+} 
+
+
 #footer {
+	font: normal 14px Verdana;
 	position: absolute;
 	bottom: 10px;
 	width:96%;
@@ -60,7 +66,7 @@ div#login input[type="submit"], div#login input[type="button"]{
 
 /*CSS PARA LISTAGEM*/
 .lista {
-	width: 650px;
+	width: 700px;
 }
 
 .lista th {
@@ -93,36 +99,37 @@ div#login input[type="submit"], div#login input[type="button"]{
 	text-align: center
 }
 
-
-form.formulario	input[type="text"], form.formulario input[type="password"]{
+form.formulario	input[type="text"], form.formulario input[type="password"]
+	{
 	width: 250px;
 	height: 25px;
 	padding: 5px;
 	font-family: Arial;
 	font-size: 14px;
 	border: 1px solid #cccccc;
-	border-radius: 5px; 
+	border-radius: 5px;
 }
 
-form.formulario select{
+form.formulario select {
 	width: 250px;
 	height: 35px;
 	padding: 5px;
 	font-family: Arial;
 	font-size: 14px;
 	border: 1px solid #cccccc;
-	border-radius: 5px; 
+	border-radius: 5px;
 }
 
-form.formulario textarea{
+form.formulario textarea {
 	padding: 5px;
 	font-family: Arial;
 	font-size: 14px;
 	border: 1px solid #cccccc;
-	border-radius: 5px; 
+	border-radius: 5px;
 }
 
-form.formulario input[type="submit"], form.formulario input[type="button"]{
+form.formulario input[type="submit"], form.formulario input[type="button"]
+	{
 	height: 35px;
 	border: 1px solid #cccccc;
 	background-color: green;
@@ -132,14 +139,13 @@ form.formulario input[type="submit"], form.formulario input[type="button"]{
 	float: right;
 }
 
-form.formulario fieldset{
+form.formulario fieldset {
 	border: 1px solid green;
-	border-radius: 5px; 
+	border-radius: 5px;
 }
 
-form.formulario legend{
-	
+form.formulario legend {
 	font-family: Verdana;
 	font-size: 16px;
-	font-weight:  bold; 
+	font-weight: bold;
 }

@@ -15,7 +15,7 @@ public abstract class GenericDao <E extends Entidade, I>{
 	private EntityManager manager;
 	
 	protected Class<E> entityClass;
-
+	
 	@SuppressWarnings("unchecked")
 	public GenericDao() {
         ParameterizedType genericSuperclass = (ParameterizedType) getClass().getGenericSuperclass();

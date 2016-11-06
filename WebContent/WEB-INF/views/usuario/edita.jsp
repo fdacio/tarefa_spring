@@ -6,7 +6,7 @@
 	<sf:form action="gravaDados" methodParam="POST" cssClass="formulario"
 		modelAttribute="usuario">
 		<fieldset>
-			<legend>Dados do Usuário</legend>
+			<legend>Meus Dados</legend>
 			<sf:hidden path="id" />
 			<table>
 				<tr>

@@ -99,17 +99,6 @@ public class TarefaController {
 		return "tarefa/lista";
 	}
 
-	@RequestMapping("finalizaTarefa")
-	public void finalizaTarefa(Integer id, HttpServletResponse response) throws IOException {
-		Tarefa tarefa = dao.buscaPorId(id);
-		tarefa.setFinalizada(true);
-		tarefa.setDataFinalizacao(Calendar.getInstance());
-		dao.altera(tarefa);
-		String resposta = new SimpleDateFormat("dd/MM/yyyy").format(tarefa.getDataFinalizacao().getTime());
-		response.setStatus(200);
-		response.getWriter().write(resposta);
-	}
-	
 	@RequestMapping("consultarMinhasTarefas")
 	public String consultarMinhasTarefas(Tarefa tarefa, HttpSession session, Model model){
 		List<Tarefa> tarefas = dao.lista(tarefa, (Usuario) session.getAttribute("usuarioLogado"));
@@ -122,6 +111,17 @@ public class TarefaController {
 		List<Tarefa> tarefas = dao.lista(tarefa);
 		model.addAttribute("tarefas", tarefas);
 		return "tarefa/listaTodas";
+	}
+
+	@RequestMapping("finalizaTarefa")
+	public void finalizaTarefa(Integer id, HttpServletResponse response) throws IOException {
+		Tarefa tarefa = dao.buscaPorId(id);
+		tarefa.setFinalizada(true);
+		tarefa.setDataFinalizacao(Calendar.getInstance());
+		dao.altera(tarefa);
+		String resposta = new SimpleDateFormat("dd/MM/yyyy").format(tarefa.getDataFinalizacao().getTime());
+		response.setStatus(200);
+		response.getWriter().write(resposta);
 	}
 
 }
