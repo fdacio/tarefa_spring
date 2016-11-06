@@ -32,7 +32,7 @@
 						<td>${tarefa.prioridade.nome}</td>		
 						<td>${tarefa.descricao}</td>
 
-						<td id="tarefa_${tarefa.id}" class="finalizar"><c:choose>
+						<td id="tarefa_${tarefa.id}" class="center"><c:choose>
 								<c:when test="${tarefa.finalizada}">
 									<fmt:formatDate value="${tarefa.dataFinalizacao.time}"
 										pattern="dd/MM/yyy" var="dataFF" />
@@ -45,7 +45,7 @@
 								</c:otherwise>
 							</c:choose></td>
 
-						<td class="acoes"><a href="alteraTarefa?id=${tarefa.id}">Alterar</a>
+						<td class="center"><a href="alteraTarefa?id=${tarefa.id}">Alterar</a>
 							<a href="excluiTarefa?id=${tarefa.id}">Excluir</a></td>
 					</tr>
 				</c:forEach>

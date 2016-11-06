@@ -17,7 +17,7 @@ public class AutorizadorInterceptor extends HandlerInterceptorAdapter {
 			return true;
 		}
 
-		if (uri.endsWith("login") || uri.endsWith("logout") ) {
+		if (uri.endsWith("goLogin") || uri.endsWith("logout") ) {
 			return true;
 		}
 		

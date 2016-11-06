@@ -19,6 +19,7 @@ import br.com.daciosoftware.tarefa.Util;
 import br.com.daciosoftware.tarefa.dao.JpaCategoriaDao;
 import br.com.daciosoftware.tarefa.dao.JpaUsuarioDao;
 import br.com.daciosoftware.tarefa.model.AlteraSenha;
+import br.com.daciosoftware.tarefa.model.Login;
 import br.com.daciosoftware.tarefa.model.Usuario;
 
 @Controller // -> Indica que o spring irá controlar essa classe
@@ -40,13 +41,14 @@ public class UsuarioController {
 		boolean primeiro = (dao.lista().size() == 0) ? true : false;
 		model.addAttribute("primeiro", primeiro);
 		model.addAttribute("usuario", new Usuario());
+		model.addAttribute("login", new Login());
 		model.addAttribute("categorias", daoCatergoria.lista());
 		return "usuario/cadastrese";
 	}
 
 	@RequestMapping(value = "cadastraUsuario", method = RequestMethod.POST)
 	public String cadastraUsuario(@Valid Usuario usuario, BindingResult result, Model model) {
-
+		model.addAttribute("login", new Login());
 		if (result.hasErrors()) {
 			model.addAttribute("categorias", daoCatergoria.lista());
 			return "usuario/cadastrese";
@@ -129,10 +131,10 @@ public class UsuarioController {
 			boolean bloqueado = usuario.isBloqueado();
 			usuario.setBloqueado(!bloqueado);
 			dao.altera(usuario);
-			return "redirect:todosusuarios";
+			return "redirect:todosUsuarios";
 
 		} else {
-			return "logout";
+			return "goLogout";
 		}
 		
 	}
@@ -145,7 +147,7 @@ public class UsuarioController {
 			model.addAttribute("usuarios", usuarios);
 			return "usuario/lista";
 		}else{
-			return "logout";
+			return "goLogout";
 		}
 	}
 

@@ -88,7 +88,7 @@ public class TarefaController {
 			return "tarefa/listaTodas";
 		}else{
 			model.addAttribute("mensagem", "Usuário não autorizado");
-			return "usuario/mensagem";
+			return "goLogout";
 		}
 	}
 

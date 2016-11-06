@@ -1,22 +1,33 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="sf"%>
-<div id="login">
-	
-	<form action="login" method="post">
+<div>
+
+	<sf:form action="goLogin" methodParam="POST" modelAttribute="login"
+		cssClass="login">
 		<table>
 			<tr>
-				<td><label for="email">Email</label></td>
-				<td><label for="senha">Senha</label></td>
-				<td><span style="color: red">${mensagemLogin}</span></td>
+				<td colspan="3">
+					<div id="errorLogin">
+						<sf:errors path="email" />
+						<sf:errors path="senha" />
+						<span>${mensagemLogin}</span>
+					</div>
+				</td>
+			</tr>
+
+			<tr>
+				<td><sf:label path="email">Email</sf:label></td>
+				<td><sf:label path="senha">Senha</sf:label></td>
+				<td></td>
 			</tr>
 			<tr>
-				<td><input type="text" name="email" value="${usuario.email }"/></td>
-				<td><input type="password" name="senha" value="${usuario.senha }"/></td>
+				<td><sf:input path="email" /></td>
+				<td><sf:password path="senha" /></td>
 				<td><input type="submit" value="Entrar" /> <input
 					type="button" value="Cadastre-se"
 					onclick="window.location.href='cadastrese'" /></td>
 			</tr>
 		</table>
 
-	</form>
+	</sf:form>
 </div>

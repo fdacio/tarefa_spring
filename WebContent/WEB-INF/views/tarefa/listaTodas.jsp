@@ -45,7 +45,7 @@
 								</c:otherwise>
 							</c:choose></td>
 
-						<td class="acoes"><a href="alteraTarefa?id=${tarefa.id}">Alterar</a>
+						<td class="center"><a href="alteraTarefa?id=${tarefa.id}">Alterar</a>
 							<a href="excluiTarefa?id=${tarefa.id}">Excluir</a></td>
 					</tr>
 				</c:forEach>

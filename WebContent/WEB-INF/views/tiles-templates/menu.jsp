@@ -17,7 +17,7 @@
 					<a href="todasTarefas"><span>Todas as Tarefas</span></a>
 				</div></li>
 			<li><div>
-					<a href="todosUsuarios"><span>Todos os Usuários</span></a>
+					<a href="todosUsuarios"><span>Bloquear Usuário</span></a>
 				</div></li>
 			<li><div>
 					<a href="cadastraCategoria"><span>Categorias</span></a>
@@ -32,7 +32,7 @@
 				<a href="dadosUsuario"><span>Meus Dados</span></a>
 			</div></li>
 		<li><div>
-				<a href="logout"><span>Sair</span></a>
+				<a href="goLogout"><span>Sair</span></a>
 			</div></li>
 	</ul>
 </div>

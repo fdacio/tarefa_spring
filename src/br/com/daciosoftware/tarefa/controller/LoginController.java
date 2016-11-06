@@ -1,50 +1,66 @@
 package br.com.daciosoftware.tarefa.controller;
 
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 import br.com.daciosoftware.tarefa.dao.JpaUsuarioDao;
+import br.com.daciosoftware.tarefa.model.Login;
 import br.com.daciosoftware.tarefa.model.Usuario;
 
 @Controller
 public class LoginController {
 
 	private JpaUsuarioDao dao;
-	
+
 	@Autowired
 	public LoginController(JpaUsuarioDao dao) {
 		this.dao = dao;
 	}
-	
-	@RequestMapping(value="login", method=RequestMethod.POST) 
-	public String login(Usuario usuario, HttpSession session, Model model) { 
-		Usuario usuarioLogin = dao.existeUsuario(usuario);
-		if(usuarioLogin != null) { 
-			session.setAttribute("usuarioLogado", usuarioLogin); 
-			model.addAttribute("usuarioLogado", usuarioLogin);
-			return "redirect:wellcome"; 
-		}
-		else{
-			model.addAttribute("mensagemLogin","Login Inválido!");
+
+	@RequestMapping(value = "goLogin", method = RequestMethod.POST)
+	public String goLogin(@Valid Login login, BindingResult result, HttpSession session, Model model) {
+		
+		if(result.hasFieldErrors("email")){
 			return "index";
 		}
 		
+		if(result.hasFieldErrors("senha")){
+			return "index";
+		}
+
+		Usuario usuarioLogin = dao.existeUsuario(login);
+		if (usuarioLogin != null) {
+			if (!usuarioLogin.isBloqueado()) {
+				session.setAttribute("usuarioLogado", usuarioLogin);
+				model.addAttribute("usuarioLogado", usuarioLogin);
+				return "redirect:wellcome";
+			}else{
+				model.addAttribute("mensagemLogin", "Usuário bloqueado!");
+				return "index";
+			}
+		} else {
+			model.addAttribute("mensagemLogin", "Login Inválido!");
+			return "index";
+		}
+
 	}
-	
-	@RequestMapping("logout") 
-	public String logout(HttpSession session) { 
-		session.invalidate(); 
-		return "redirect:index"; 
+
+	@RequestMapping("goLogout")
+	public String goLogout(HttpSession session) {
+		session.invalidate();
+		return "redirect:index";
 	}
-	
-	@RequestMapping("wellcome") 
-	public String wellcome() { 
-		return "wellcome"; 
+
+	@RequestMapping("wellcome")
+	public String wellcome() {
+		return "wellcome";
 	}
-	
+
 }

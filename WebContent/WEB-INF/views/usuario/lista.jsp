@@ -2,7 +2,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="sf"%>
 <div>
-	<form action="consultarUsuarios" method="post" class="formulario">
+	<form action="#" method="post" class="formulario">
 		<fieldset>
 			<legend>Lista de Usuários</legend>
 
@@ -30,8 +30,8 @@
 						<td>${usuario.nome}</td>
 						<td>${usuario.email}</td>
 						<td>${usuario.categoria.nome}</td>
-						<td>${(usuario.bloqueado)?'SIM':'NÃO'}</td>
-						<td class="acoes"><a href="bloquearUsuario?id=${usuario.id}">${(usuario.bloqueado)?'Desbloquear':'Bloquear'}</a>
+						<td class="center">${(usuario.bloqueado)?'SIM':'NÃO'}</td>
+						<td class="center"><a href="bloquearUsuario?id=${usuario.id}">${(usuario.bloqueado)?'Desbloquear':'Bloquear'}</a>
 						</td>
 					</tr>
 				</c:forEach>

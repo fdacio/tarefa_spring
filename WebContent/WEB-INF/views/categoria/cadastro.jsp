@@ -44,7 +44,7 @@
 					<tr>
 						<td>${categoriaLista.id}</td>
 						<td>${categoriaLista.nome}</td>
-						<td><a href="alteraCategoria?id=${categoriaLista.id}">Alterar</a>
+						<td class="center"><a href="alteraCategoria?id=${categoriaLista.id}">Alterar</a>
 							<a href="excluiCategoria?id=${categoriaLista.id}">Excluir</a></td>
 					</tr>
 				</c:forEach>
