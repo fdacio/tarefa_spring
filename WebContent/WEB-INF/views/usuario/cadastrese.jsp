@@ -10,9 +10,12 @@
 				<tr>
 					<td><sf:errors path="nome" cssStyle="color:red; display:block" />
 						<sf:errors path="email" cssStyle="color:red; display:block" /> 
-						<sf:errors path="senha" cssStyle="color:red; display:block" /> 
-						<span style="color: red; display: block">${confirmaSenha}</span> 
-						<span style="color: blue; display: block">${msgSucesso}</span></td>
+						<sf:errors path="senha" cssStyle="color:red; display:block" />
+						<sf:errors path="confirmaSenha" cssStyle="color:red; display:block" /> 
+						<sf:errors path="categoria" cssStyle="color:red; display:block" />
+						
+						<span style="color: blue; display: block">${msgSucesso}</span>
+					</td>
 				</tr>
 
 				<tr>

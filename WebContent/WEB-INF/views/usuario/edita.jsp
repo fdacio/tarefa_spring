@@ -10,10 +10,11 @@
 			<sf:hidden path="id" />
 			<table>
 				<tr>
-					<td><sf:errors path="nome" cssStyle="color:red" /> 
-						<sf:errors path="email" cssStyle="color:red" />
-						<span style="color:blue">${mensagemSucesso}</span>
-							
+					<td><sf:errors path="nome" cssStyle="color:red; display:block" />
+						<sf:errors path="email" cssStyle="color:red; display:block" /> 
+						<sf:errors path="senha" cssStyle="color:red; display:block" />
+						<sf:errors path="categoria" cssStyle="color:red; display:block" /> 
+						<span style="color: blue; display: block">${msgSucesso}</span>
 					</td>
 				</tr>
 				<tr>

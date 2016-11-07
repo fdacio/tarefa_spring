@@ -26,26 +26,34 @@ import br.com.daciosoftware.tarefa.model.Usuario;
 @Transactional // -> Para todos os métodos serem controlados por transações JPA
 public class TarefaController {
 
+	
 	private JpaTarefaDao dao;
+	private LoginController login;
 
 	@Autowired
-	public TarefaController(JpaTarefaDao dao) {
+	public TarefaController(JpaTarefaDao dao, LoginController login) {
+		this.dao = dao;
+		this.login = login;
+	}
+	
+	
+	public void setJpaTarefaDao(JpaTarefaDao dao){
 		this.dao = dao;
 	}
 
 	@RequestMapping("novaTarefa")
-	public String novaTarefa(Model model, HttpSession session) {
+	public String novaTarefa(Model model) {
 		Tarefa tarefa = new Tarefa();
 		tarefa.setDataTarefa(Calendar.getInstance());
-		tarefa.setUsuario((Usuario) session.getAttribute("usuarioLogado"));
-		
+		tarefa.setUsuario(login.getUsuarioLogado());
+
 		model.addAttribute("tarefa", tarefa);
 		model.addAttribute("prioridades", TarefaPrioridade.values());
-		
+
 		return "tarefa/nova";
 	}
-	
-	@RequestMapping(value="/gravaTarefa", method=RequestMethod.POST)
+
+	@RequestMapping(value = "/gravaTarefa", method = RequestMethod.POST)
 	public String gravaTarefa(@Valid Tarefa tarefa, BindingResult result, Model model) {
 		if (tarefa.getId() == null) {
 			if (result.hasErrors()) {
@@ -84,30 +92,30 @@ public class TarefaController {
 		List<Tarefa> tarefas = dao.lista();
 		model.addAttribute("tarefas", tarefas);
 		Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
-		if(usuarioLogado.isAdministrador()){
+		if (usuarioLogado.isAdministrador()) {
 			return "tarefa/listaTodas";
-		}else{
+		} else {
 			model.addAttribute("mensagem", "Usuário não autorizado");
 			return "goLogout";
 		}
 	}
 
 	@RequestMapping("minhasTarefas")
-	public String minhasTarefas(HttpSession session, Model model) {
-		List<Tarefa> tarefas = dao.lista((Usuario) session.getAttribute("usuarioLogado"));
+	public String minhasTarefas(Model model) {
+		List<Tarefa> tarefas = dao.lista(login.getUsuarioLogado());
 		model.addAttribute("tarefas", tarefas);
 		return "tarefa/lista";
 	}
 
 	@RequestMapping("consultarMinhasTarefas")
-	public String consultarMinhasTarefas(Tarefa tarefa, HttpSession session, Model model){
-		List<Tarefa> tarefas = dao.lista(tarefa, (Usuario) session.getAttribute("usuarioLogado"));
+	public String consultarMinhasTarefas(Tarefa tarefa, Model model) {
+		List<Tarefa> tarefas = dao.lista(tarefa, login.getUsuarioLogado());
 		model.addAttribute("tarefas", tarefas);
 		return "tarefa/lista";
 	}
 
 	@RequestMapping("consultarTodasTarefas")
-	public String consultarTodasTarefas(Tarefa tarefa, Model model){
+	public String consultarTodasTarefas(Tarefa tarefa, Model model) {
 		List<Tarefa> tarefas = dao.lista(tarefa);
 		model.addAttribute("tarefas", tarefas);
 		return "tarefa/listaTodas";
@@ -116,12 +124,14 @@ public class TarefaController {
 	@RequestMapping("finalizaTarefa")
 	public void finalizaTarefa(Integer id, HttpServletResponse response) throws IOException {
 		Tarefa tarefa = dao.buscaPorId(id);
-		tarefa.setFinalizada(true);
-		tarefa.setDataFinalizacao(Calendar.getInstance());
-		dao.altera(tarefa);
-		String resposta = new SimpleDateFormat("dd/MM/yyyy").format(tarefa.getDataFinalizacao().getTime());
-		response.setStatus(200);
-		response.getWriter().write(resposta);
+		if (tarefa.getUsuario().getId() ==login.getUsuarioLogado().getId()) {
+			tarefa.setFinalizada(true);
+			tarefa.setDataFinalizacao(Calendar.getInstance());
+			dao.altera(tarefa);
+			String resposta = new SimpleDateFormat("dd/MM/yyyy").format(tarefa.getDataFinalizacao().getTime());
+			response.setStatus(200);
+			response.getWriter().write(resposta);
+		}
 	}
 
 }

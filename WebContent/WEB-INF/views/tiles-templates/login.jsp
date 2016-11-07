@@ -3,7 +3,7 @@
 <div>
 
 	<sf:form action="goLogin" methodParam="POST" modelAttribute="login"
-		cssClass="login">
+		cssClass="login" >
 		<table>
 			<tr>
 				<td colspan="3">

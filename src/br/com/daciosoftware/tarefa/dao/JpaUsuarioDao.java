@@ -13,18 +13,18 @@ import br.com.daciosoftware.tarefa.model.Usuario;
 @Repository
 public class JpaUsuarioDao extends GenericDao<Usuario, Integer>{
 
-	@SuppressWarnings("unchecked")
 	public List<Usuario> lista() {
-		return getEntityManager().createQuery("select u from Usuario u").getResultList();
+		return (List<Usuario>) getEntityManager().createQuery("select u from Usuario u", Usuario.class).getResultList();
 	}
 
 	@SuppressWarnings("unchecked")
-	public Usuario existeUsuario(Login login) {
+	public Usuario getUsuarioLogin(Login login) {
 		String jpql = "select u from Usuario u where u.email = :pemail and u.senha = :psenha";
 		Query query = getEntityManager().createQuery(jpql, Usuario.class);
 		query.setParameter("pemail", login.getEmail());
 		query.setParameter("psenha", Util.criptografaSenha(login.getSenha()));
 		List<Usuario> lista = query.getResultList();
 		return (lista.size() >0)?lista.get(0):null;
+		//return (Usuario) query.getSingleResult();
 	}
 }

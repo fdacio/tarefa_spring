@@ -10,24 +10,23 @@ import br.com.daciosoftware.tarefa.model.Usuario;
 @Repository
 public class JpaTarefaDao extends GenericDao<Tarefa, Integer>{
 
-	@SuppressWarnings("unchecked")
 	public List<Tarefa> lista() {
-		return getEntityManager().createQuery("select t from Tarefa t").getResultList();
+		return getEntityManager().createQuery("select t from Tarefa t", Tarefa.class).getResultList();
 	}
 
-	@SuppressWarnings("unchecked")
+
 	public List<Tarefa> lista(Usuario usuario) {
-		return getEntityManager().createQuery("select t from Tarefa t where t.usuario.id = "+usuario.getId()).getResultList();
+		return getEntityManager().createQuery("select t from Tarefa t where t.usuario.id = "+usuario.getId(), Tarefa.class).getResultList();
 	}
 
-	@SuppressWarnings("unchecked")
+
 	public List<Tarefa> lista(Tarefa tarefa, Usuario usuario) {
-		return getEntityManager().createQuery("select t from Tarefa t where t.usuario.id = "+usuario.getId()+" and t.descricao like "+"'%"+tarefa.getDescricao()+"%'").getResultList();
+		return getEntityManager().createQuery("select t from Tarefa t where t.usuario.id = "+usuario.getId()+" and t.descricao like "+"'%"+tarefa.getDescricao()+"%'", Tarefa.class).getResultList();
 	}
 
-	@SuppressWarnings("unchecked")
+
 	public List<Tarefa> lista(Tarefa tarefa) {
-		return getEntityManager().createQuery("select t from Tarefa t where t.descricao like "+"'%"+tarefa.getDescricao()+"%'").getResultList();
+		return getEntityManager().createQuery("select t from Tarefa t where t.descricao like "+"'%"+tarefa.getDescricao()+"%'", Tarefa.class).getResultList();
 	}
 	
 	

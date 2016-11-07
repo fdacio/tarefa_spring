@@ -9,6 +9,8 @@ import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.context.request.RequestContextHolder;
+import org.springframework.web.context.request.ServletRequestAttributes;
 
 import br.com.daciosoftware.tarefa.dao.JpaUsuarioDao;
 import br.com.daciosoftware.tarefa.model.Login;
@@ -25,7 +27,7 @@ public class LoginController {
 	}
 
 	@RequestMapping(value = "goLogin", method = RequestMethod.POST)
-	public String goLogin(@Valid Login login, BindingResult result, HttpSession session, Model model) {
+	public String goLogin(@Valid Login login, BindingResult result, Model model) {
 		
 		if(result.hasFieldErrors("email")){
 			return "index";
@@ -35,10 +37,11 @@ public class LoginController {
 			return "index";
 		}
 
-		Usuario usuarioLogin = dao.existeUsuario(login);
+		Usuario usuarioLogin = dao.getUsuarioLogin(login);
 		if (usuarioLogin != null) {
 			if (!usuarioLogin.isBloqueado()) {
-				session.setAttribute("usuarioLogado", usuarioLogin);
+				setUsuarioLogado(usuarioLogin);
+				//session.setAttribute("usuarioLogado", usuarioLogin);
 				model.addAttribute("usuarioLogado", usuarioLogin);
 				return "redirect:wellcome";
 			}else{
@@ -63,4 +66,17 @@ public class LoginController {
 		return "wellcome";
 	}
 
+	private HttpSession session() {
+	    ServletRequestAttributes attr = (ServletRequestAttributes) RequestContextHolder.currentRequestAttributes();
+	    return attr.getRequest().getSession(true); 
+	}	
+
+	public Usuario getUsuarioLogado(){
+		return ((Usuario) session().getAttribute("usuarioLogado"));
+	}
+
+	public void setUsuarioLogado(Usuario usuario){
+		session().setAttribute("usuarioLogado", usuario);
+	}
+	
 }

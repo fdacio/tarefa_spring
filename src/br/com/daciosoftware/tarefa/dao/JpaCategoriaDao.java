@@ -9,9 +9,8 @@ import br.com.daciosoftware.tarefa.model.Categoria;
 @Repository
 public class JpaCategoriaDao extends GenericDao<Categoria, Integer>{
 
-	@SuppressWarnings("unchecked")
 	public List<Categoria> lista() {
-		return getEntityManager().createQuery("select u from Categoria u").getResultList();
+		return getEntityManager().createQuery("select u from Categoria u", Categoria.class).getResultList();
 	}
 
 }
