@@ -6,7 +6,6 @@ import java.util.Calendar;
 import java.util.List;
 
 import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -87,46 +86,53 @@ public class TarefaController {
 		return "tarefa/altera";
 	}
 
-	@RequestMapping("todasTarefas")
-	public String todasTarefas(HttpSession session, Model model) {
-		List<Tarefa> tarefas = dao.lista();
+	
+	private String listaTarefa(Tarefa tarefa, Usuario usuario, Model model){
+		List<Tarefa> tarefas = dao.listaTarefa(tarefa, usuario);
+		model.addAttribute("tarefa", tarefa);
 		model.addAttribute("tarefas", tarefas);
-		Usuario usuarioLogado = (Usuario) session.getAttribute("usuarioLogado");
-		if (usuarioLogado.isAdministrador()) {
-			return "tarefa/listaTodas";
+		System.out.println("Lista Tarefa usuario: " + usuario);
+		if(usuario != null){
+			model.addAttribute("titulo", "Minhas Tarefas");
+		}else{
+			model.addAttribute("titulo", "Todas Tarefas");
+		}
+		return "tarefa/lista";
+	}
+
+	
+	@RequestMapping("minhasTarefas")
+	public String minhasTarefas(Model model) {
+		Tarefa tarefa = new Tarefa();
+		tarefa.setUsuario(login.getUsuarioLogado());
+		return listaTarefa(tarefa, tarefa.getUsuario(), model);
+		
+	}
+
+	@RequestMapping("todasTarefas")
+	public String todasTarefas(Model model) {
+		if (login.getUsuarioLogado().isAdministrador()) {
+			Tarefa tarefa = new Tarefa();
+			tarefa.setUsuario(null);
+			return listaTarefa(tarefa, tarefa.getUsuario(), model);
 		} else {
 			return "goLogout";
 		}
 	}
 
-	@RequestMapping("minhasTarefas")
-	public String minhasTarefas(Model model) {
-		List<Tarefa> tarefas = dao.lista(login.getUsuarioLogado());
-		model.addAttribute("tarefas", tarefas);
-		return "tarefa/lista";
+	@RequestMapping("consultarTarefa")
+	public String consultarTarefa(Tarefa tarefa,  Model model) {
+		return listaTarefa(tarefa, tarefa.getUsuario(), model);
 	}
 
 	@RequestMapping("usuarioTarefas")
 	public String usuarioTarefas(Integer idUsuario, Model model) {
-		List<Tarefa> tarefas = dao.lista(dao.buscaPorId(idUsuario));
-		model.addAttribute("tarefas", tarefas);
-		return "tarefa/lista";
+		Tarefa tarefa = new Tarefa();
+		tarefa.setUsuario(dao.getEntityManager().getReference(Usuario.class, idUsuario));
+		return listaTarefa(tarefa, tarefa.getUsuario(), model);
 	}
 
-	@RequestMapping("consultarMinhasTarefas")
-	public String consultarMinhasTarefas(Tarefa tarefa, Model model) {
-		List<Tarefa> tarefas = dao.lista(tarefa, login.getUsuarioLogado());
-		model.addAttribute("tarefas", tarefas);
-		return "tarefa/lista";
-	}
-
-	@RequestMapping("consultarTodasTarefas")
-	public String consultarTodasTarefas(Tarefa tarefa, Model model) {
-		List<Tarefa> tarefas = dao.lista(tarefa);
-		model.addAttribute("tarefas", tarefas);
-		return "tarefa/listaTodas";
-	}
-
+	
 	@RequestMapping("finalizaTarefa")
 	public void finalizaTarefa(Integer id, HttpServletResponse response) throws IOException {
 		Tarefa tarefa = dao.buscaPorId(id);

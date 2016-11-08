@@ -37,7 +37,7 @@
 	</definition>
 
 	<definition name="tarefa/lista" extends="content_menu">
-		<put-attribute name="titulo" value="Minhas Tarefas" />
+		<put-attribute name="titulo" value="Lista de Tarefas" />
 		<put-attribute name="content" value="/WEB-INF/views/tarefa/lista.jsp" />
 	</definition>
 
