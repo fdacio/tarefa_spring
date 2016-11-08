@@ -22,7 +22,7 @@
 					<th>Nome</th>
 					<th>Email</th>
 					<th>Categoria</th>
-					<th>Boqueado</th>
+					<th>Bloqueado</th>
 					<th>Ações</th>
 				</tr>
 				<c:forEach var="usuario" items="${usuarios}">
@@ -31,7 +31,9 @@
 						<td>${usuario.email}</td>
 						<td>${usuario.categoria.nome}</td>
 						<td class="center">${(usuario.bloqueado)?'SIM':'NÃO'}</td>
-						<td class="center"><a href="bloquearUsuario?id=${usuario.id}">${(usuario.bloqueado)?'Desbloquear':'Bloquear'}</a>
+						<td class="center">
+							<a href="bloquearUsuario?id=${usuario.id}">${(usuario.bloqueado)?'Desbloquear':'Bloquear'}</a>
+							<a href="usuarioTarefas?id=${usuario.id}">Tarefas</a>
 						</td>
 					</tr>
 				</c:forEach>

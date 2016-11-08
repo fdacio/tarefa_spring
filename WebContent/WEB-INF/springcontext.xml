@@ -22,8 +22,7 @@
 		<bean class="br.com.daciosoftware.tarefa.AutorizadorInterceptor" />
 	</mvc:interceptors>
 
-	<!--Tiles - Gerenciamento do template.jsp -->
-	
+	<!--Tiles - Gerenciamento do templates JSP -->	
 	<bean id="tilesViewResolver" class="org.springframework.web.servlet.view.UrlBasedViewResolver">
 		<property name="viewClass" value="org.springframework.web.servlet.view.tiles3.TilesView" />
 	</bean>
@@ -45,7 +44,6 @@
 		<property name="password" value="legiao" />
 	</bean>
 
-	<!-- gerenciamento da jpa pelo spring -->
 	<bean id="entityManagerFactory"
 		class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 		
@@ -58,6 +56,8 @@
 		<property name="persistenceXmlLocation" value="classpath*:META-INF/persistence.xml" />
 
 	</bean>
+	<!-- Fim do gerenciamento da jpa pelo spring -->
+
 
 	<!-- gerenciamento da transação pelo spring -->
 	<bean id="transactionManager" class="org.springframework.orm.jpa.JpaTransactionManager">

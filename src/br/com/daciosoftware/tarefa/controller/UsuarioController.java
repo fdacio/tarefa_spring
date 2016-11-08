@@ -95,8 +95,6 @@ public class UsuarioController {
 
 		String senha = dao.buscaPorId(usuario.getId()).getSenha();
 		usuario.setSenha(senha);
-		usuario.setAdministrador(true);
-		
 		dao.altera(usuario);
 		model.addAttribute("msgSucesso", "Operação realizada com sucesso!");
 		return "usuario/edita";

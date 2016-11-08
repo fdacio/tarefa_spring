@@ -10,6 +10,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToOne;
 import javax.persistence.Temporal;
@@ -22,10 +23,18 @@ import org.springframework.format.annotation.DateTimeFormat;
 import br.com.daciosoftware.tarefa.dao.Entidade;
 
 @Entity
-@NamedQuery(name = Tarefa.LISTA_TODOS, query = "select a from Tarefa a")
+@NamedQueries({
+@NamedQuery(name=Tarefa.LISTA_TODAS, query = "select t from Tarefa t"),
+@NamedQuery(name=Tarefa.TAREFAS_POR_USUARIO, query = "select t from Tarefa t where t.usuario.id=:pusuarioId"),
+@NamedQuery(name=Tarefa.TAREFAS_POR_DESCRICAO, query = "select t from Tarefa t where t.descricao like ':pdescricao'"),
+@NamedQuery(name=Tarefa.TAREFAS_POR_USUARIO_DESCRICAO, query = "select t from Tarefa t where t.descricao like ':pdescricao' and t.usuario.id = :pusuarioId")
+})
 public class Tarefa implements Entidade{
 	
-	public static final String LISTA_TODOS = "Tarefa.ListaTodos";
+	public static final String LISTA_TODAS = "Tarefa.ListaTodas";
+	public static final String TAREFAS_POR_USUARIO = "Tarefa.TarefasPorUsuario";
+	public static final String TAREFAS_POR_DESCRICAO = "Tarefa.TarefasPorDescricao";
+	public static final String TAREFAS_POR_USUARIO_DESCRICAO = "Tarefa.TarefasPorUsuarioDescricao";
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -95,7 +95,6 @@ public class TarefaController {
 		if (usuarioLogado.isAdministrador()) {
 			return "tarefa/listaTodas";
 		} else {
-			model.addAttribute("mensagem", "Usuário não autorizado");
 			return "goLogout";
 		}
 	}
@@ -103,6 +102,13 @@ public class TarefaController {
 	@RequestMapping("minhasTarefas")
 	public String minhasTarefas(Model model) {
 		List<Tarefa> tarefas = dao.lista(login.getUsuarioLogado());
+		model.addAttribute("tarefas", tarefas);
+		return "tarefa/lista";
+	}
+
+	@RequestMapping("usuarioTarefas")
+	public String usuarioTarefas(Integer idUsuario, Model model) {
+		List<Tarefa> tarefas = dao.lista(dao.buscaPorId(idUsuario));
 		model.addAttribute("tarefas", tarefas);
 		return "tarefa/lista";
 	}
