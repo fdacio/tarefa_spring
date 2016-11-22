@@ -14,12 +14,7 @@ public abstract class GenericDao <E extends Entidade, I>{
 	@PersistenceContext
 	private EntityManager manager;
 	
-	protected Class<E> entityClass;
-	
-	@SuppressWarnings("unchecked")
 	public GenericDao() {
-        ParameterizedType genericSuperclass = (ParameterizedType) getClass().getGenericSuperclass();
-        this.entityClass = (Class<E>) genericSuperclass.getActualTypeArguments()[0];
     }
 	
 	public EntityManager getEntityManager(){
@@ -40,6 +35,8 @@ public abstract class GenericDao <E extends Entidade, I>{
 	}
 	
 	public E buscaPorId(I id) {
+        ParameterizedType genericSuperclass = (ParameterizedType) getClass().getGenericSuperclass();
+        Class<E> entityClass = (Class<E>) genericSuperclass.getActualTypeArguments()[0];
 		return manager.find(entityClass, id);
 	}
 

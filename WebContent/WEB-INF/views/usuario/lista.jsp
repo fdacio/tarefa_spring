@@ -30,10 +30,9 @@
 						<td>${usuario.nome}</td>
 						<td>${usuario.email}</td>
 						<td>${usuario.categoria.nome}</td>
-						<td class="center">${(usuario.bloqueado)?'SIM':'NÃO'}</td>
+						<td class="center"><a href="bloquearUsuario?id=${usuario.id}">${(usuario.bloqueado)?'Desbloquear':'Bloquear'}</a></td>
 						<td class="center">
-							<a href="bloquearUsuario?id=${usuario.id}">${(usuario.bloqueado)?'Desbloquear':'Bloquear'}</a>
-							<a href="usuarioTarefas?id=${usuario.id}">Tarefas</a>
+							<a href="usuarioTarefas?id=${usuario.id}">Ver Tarefas</a>
 						</td>
 					</tr>
 				</c:forEach>

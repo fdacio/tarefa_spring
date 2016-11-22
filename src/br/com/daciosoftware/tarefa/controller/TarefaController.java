@@ -28,6 +28,8 @@ public class TarefaController {
 	
 	private JpaTarefaDao dao;
 	private LoginController login;
+	
+	private int pag = 0;
 
 	@Autowired
 	public TarefaController(JpaTarefaDao dao, LoginController login) {
@@ -73,6 +75,23 @@ public class TarefaController {
 		}
 		return "redirect:minhasTarefas";
 	}
+	
+	@RequestMapping("add1000Tarefas")
+	public String add1000Tarefas(){
+		for(int i=0; i<1000; i++){
+			Calendar dataTarefa = Calendar.getInstance();
+			dataTarefa.add(Calendar.DAY_OF_MONTH, i);
+			dataTarefa.setTime(dataTarefa.getTime());
+			String descricao = "Tarefa "+i+" para teste de paginação";
+			Tarefa tarefa = new Tarefa();
+			tarefa.setDataTarefa(dataTarefa);
+			tarefa.setDescricao(descricao);
+			tarefa.setPrioridade(TarefaPrioridade.URGENTE);
+			tarefa.setUsuario(login.getUsuarioLogado());
+			dao.adiciona(tarefa);
+		}
+		return "redirect:minhasTarefas";
+	}
 
 	@RequestMapping("excluiTarefa")
 	public String excluiTarefa(Integer id, Model model) {
@@ -88,11 +107,11 @@ public class TarefaController {
 
 	
 	private String listaTarefa(Tarefa tarefa, Usuario usuario, Model model){
-		List<Tarefa> tarefas = dao.listaTarefa(tarefa, usuario);
+		List<Tarefa> tarefas = dao.listaTarefa(tarefa, usuario, pag);
 		model.addAttribute("tarefa", tarefa);
 		model.addAttribute("tarefas", tarefas);
 		System.out.println("Lista Tarefa usuario: " + usuario);
-		if(usuario != null){
+		if(usuario != null && usuario.getId() != null){
 			model.addAttribute("titulo", "Minhas Tarefas");
 		}else{
 			model.addAttribute("titulo", "Todas Tarefas");
@@ -126,9 +145,9 @@ public class TarefaController {
 	}
 
 	@RequestMapping("usuarioTarefas")
-	public String usuarioTarefas(Integer idUsuario, Model model) {
+	public String usuarioTarefas(Integer id, Model model) {
 		Tarefa tarefa = new Tarefa();
-		tarefa.setUsuario(dao.getEntityManager().getReference(Usuario.class, idUsuario));
+		tarefa.setUsuario(dao.getEntityManager().getReference(Usuario.class, id));
 		return listaTarefa(tarefa, tarefa.getUsuario(), model);
 	}
 

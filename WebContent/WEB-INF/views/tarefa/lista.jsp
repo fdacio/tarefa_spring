@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://www.springframework.org/tags/form" prefix="sf"%>
+<%@ taglib uri="http://displaytag.sf.net" prefix="display"%>
 <div>
 
 	<sf:form action="consultarTarefa" methodParm="POST"
@@ -20,6 +21,14 @@
 			</table>
 		</fieldset>
 	</sf:form>
+	
+	<display:table name="sessionScope.tarefas" pagesize="10" >
+		<display:column property="usuario.nome" title="Pessoa" />
+		<display:column property="dataTarefa.time" decorator="org.displaytag.sample.LongDateWrapper" title="Data"/>
+		<display:column property="prioridade.nome" title="Prioridade" />
+		<display:column property="descricao" title="Descrição"/>
+		<display:column property="finalizada" title="Finalizada"/>
+	</display:table>
 
 	<table class="lista">
 		<tr>

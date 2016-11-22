@@ -20,7 +20,7 @@ public class JpaTarefaDao extends GenericDao<Tarefa, Integer> {
 		return getEntityManager().createNamedQuery(Tarefa.LISTA_TODAS, Tarefa.class).getResultList();
 	}
 
-	public List<Tarefa> listaTarefa(Tarefa tarefa, Usuario usuario) {
+	public List<Tarefa> listaTarefa(Tarefa tarefa, Usuario usuario, int pag) {
 		CriteriaBuilder builder = getEntityManager().getCriteriaBuilder();
 		CriteriaQuery<Tarefa> query = builder.createQuery(Tarefa.class);
 		Root<Tarefa> from = query.from(Tarefa.class);
@@ -41,8 +41,10 @@ public class JpaTarefaDao extends GenericDao<Tarefa, Integer> {
 		}
 
 		TypedQuery<Tarefa> typedQuery = getEntityManager()
-				.createQuery(query.select(from).where(predicate).orderBy(builder.asc(from.get("descricao"))));
+				.createQuery(query.select(from).where(predicate).orderBy(builder.desc(from.get("dataTarefa"))));
 
+		typedQuery.setMaxResults(5);
+		typedQuery.setFirstResult(pag);
 		return typedQuery.getResultList();
 	}
 

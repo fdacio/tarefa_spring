@@ -66,11 +66,6 @@
 		<put-attribute name="content" value="/WEB-INF/views/usuario/lista.jsp" />
 	</definition>
 
-	<definition name="usuario/mensagem" extends="content_menu">
-		<put-attribute name="titulo" value="Usuário" />
-		<put-attribute name="content" value="/WEB-INF/views/usuario/mensagem.jsp" />
-	</definition>
-
 	<definition name="categoria/cadastro" extends="content_menu">
 		<put-attribute name="titulo" value="Categorias" />
 		<put-attribute name="content" value="/WEB-INF/views/categoria/cadastro.jsp" />

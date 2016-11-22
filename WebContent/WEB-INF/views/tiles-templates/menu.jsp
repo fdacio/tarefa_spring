@@ -9,15 +9,18 @@
 				<a href="minhasTarefas"><span>Minhas Tarefas</span></a>
 			</div></li>
 		<li><div>
+				<a href="add1000Tarefas"><span>Add 1000 Tarefas</span></a>
+			</div></li>
+		<li><div>
 				<a href="#"><span>Relatório</span></a>
 			</div></li>
 		<c:if test="${usuarioLogado.administrador }">
-			<li class="ui-widget-header"><div>Administrador</div></li>
+			<li class="ui-widget-header"><div>Área de Administrador</div></li>
 			<li><div>
 					<a href="todasTarefas"><span>Todas as Tarefas</span></a>
 				</div></li>
 			<li><div>
-					<a href="todosUsuarios"><span>Bloquear Usuário</span></a>
+					<a href="todosUsuarios"><span>Usuários</span></a>
 				</div></li>
 			<li><div>
 					<a href="cadastraCategoria"><span>Categorias</span></a>

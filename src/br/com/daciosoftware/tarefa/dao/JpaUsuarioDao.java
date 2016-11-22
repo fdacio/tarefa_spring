@@ -16,6 +16,7 @@ public class JpaUsuarioDao extends GenericDao<Usuario, Integer>{
 	public List<Usuario> lista() {
 		return (List<Usuario>) getEntityManager().createQuery("select u from Usuario u", Usuario.class).getResultList();
 	}
+	
 
 	@SuppressWarnings("unchecked")
 	public Usuario getUsuarioLogin(Login login) {
