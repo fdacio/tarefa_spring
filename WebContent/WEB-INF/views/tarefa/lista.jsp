@@ -22,13 +22,13 @@
 		</fieldset>
 	</sf:form>
 	
-	<display:table name="sessionScope.tarefas" pagesize="10" >
+<%-- 	<display:table name="tarefas" pagesize="10" class="lista">
 		<display:column property="usuario.nome" title="Pessoa" />
-		<display:column property="dataTarefa.time" decorator="org.displaytag.sample.LongDateWrapper" title="Data"/>
+		<display:column property="dataTarefa.time" title="Data"/>
 		<display:column property="prioridade.nome" title="Prioridade" />
 		<display:column property="descricao" title="Descrição"/>
 		<display:column property="finalizada" title="Finalizada"/>
-	</display:table>
+	</display:table> --%>
 
 	<table class="lista">
 		<tr>

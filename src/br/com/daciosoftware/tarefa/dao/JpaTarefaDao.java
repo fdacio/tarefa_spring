@@ -43,8 +43,8 @@ public class JpaTarefaDao extends GenericDao<Tarefa, Integer> {
 		TypedQuery<Tarefa> typedQuery = getEntityManager()
 				.createQuery(query.select(from).where(predicate).orderBy(builder.desc(from.get("dataTarefa"))));
 
-		typedQuery.setMaxResults(5);
-		typedQuery.setFirstResult(pag);
+		typedQuery.setMaxResults(10);
+		typedQuery.setFirstResult(pag+10);
 		return typedQuery.getResultList();
 	}
 

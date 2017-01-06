@@ -25,12 +25,9 @@ import br.com.daciosoftware.tarefa.model.Usuario;
 @Transactional // -> Para todos os métodos serem controlados por transações JPA
 public class TarefaController {
 
-	
 	private JpaTarefaDao dao;
 	private LoginController login;
 	
-	private int pag = 0;
-
 	@Autowired
 	public TarefaController(JpaTarefaDao dao, LoginController login) {
 		this.dao = dao;
@@ -104,13 +101,12 @@ public class TarefaController {
 		model.addAttribute("tarefa", dao.buscaPorId(id));
 		return "tarefa/altera";
 	}
-
 	
 	private String listaTarefa(Tarefa tarefa, Usuario usuario, Model model){
-		List<Tarefa> tarefas = dao.listaTarefa(tarefa, usuario, pag);
+		List<Tarefa> tarefas = dao.listaTarefa(tarefa, usuario, 0);
 		model.addAttribute("tarefa", tarefa);
 		model.addAttribute("tarefas", tarefas);
-		System.out.println("Lista Tarefa usuario: " + usuario);
+		
 		if(usuario != null && usuario.getId() != null){
 			model.addAttribute("titulo", "Minhas Tarefas");
 		}else{
@@ -118,7 +114,6 @@ public class TarefaController {
 		}
 		return "tarefa/lista";
 	}
-
 	
 	@RequestMapping("minhasTarefas")
 	public String minhasTarefas(Model model) {
@@ -151,7 +146,6 @@ public class TarefaController {
 		return listaTarefa(tarefa, tarefa.getUsuario(), model);
 	}
 
-	
 	@RequestMapping("finalizaTarefa")
 	public void finalizaTarefa(Integer id, HttpServletResponse response) throws IOException {
 		Tarefa tarefa = dao.buscaPorId(id);
